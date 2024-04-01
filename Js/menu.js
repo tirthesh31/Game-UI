@@ -1,3 +1,5 @@
+import { agentSelection } from "./agent.js";
+
 export function teamSelection(initialPage) {
 
     initialPage.style.backgroundImage = 'url("../Images/menu background image.webp")';
@@ -133,11 +135,12 @@ export function teamSelection(initialPage) {
     });
 
     Array.from(teams).forEach(team => {
-
-        team.addEventListener('click',() => {
-            var user = {};
-            user.selectedTeam = team.childNodes[0].textContent;
-
+        
+        team.addEventListener('click', () => {
+        
+            const selectedTeam = team.childNodes[0].textContent;
+            initialPage.removeChild(document.getElementsByClassName("menuContainer")[0]);
+            agentSelection(initialPage, selectedTeam);
         });
     });
 }
