@@ -137,10 +137,12 @@ export function teamSelection(initialPage) {
     Array.from(teams).forEach(team => {
         
         team.addEventListener('click', () => {
-        
+            
+            var playerData = {};
             const selectedTeam = team.childNodes[0].textContent;
+            playerData.selectedTeam = selectedTeam;
             initialPage.removeChild(document.getElementsByClassName("menuContainer")[0]);
-            agentSelection(initialPage, selectedTeam);
+            agentSelection(initialPage, playerData);
         });
     });
 }

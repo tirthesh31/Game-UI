@@ -1,9 +1,12 @@
-export function agentSelection(initialPage, selectedTeam) {
+import { playerInfo } from "./player.js";
+
+export function agentSelection(initialPage, playerData) {
     initialPage.style.alignItems = "center";
     initialPage.style.height = "auto";
 
     // Create container for heading and buttons
     const headerContainer = document.createElement("div");
+    headerContainer.className = "playerInstruction";
     headerContainer.style.display = "flex";
     headerContainer.style.justifyContent = "space-between";
     headerContainer.style.width = "90%";
@@ -40,7 +43,7 @@ export function agentSelection(initialPage, selectedTeam) {
         .then(response => response.json())
         .then(data => {
             let agents;
-            selectedTeam = selectedTeam.replace(" ", "-");
+            var selectedTeam = playerData["selectedTeam"].replace(" ", "-");
             if (selectedTeam === "AUTO") {
                 const randomIndex = Math.floor(Math.random() * 2); // 0 or 1
                 const teams = ["Terrorist", "Counter-Terrorist"];
@@ -51,7 +54,7 @@ export function agentSelection(initialPage, selectedTeam) {
             }
 
             const agentContainer = document.createElement("div");
-            agentContainer.className = "agent-container";
+            agentContainer.className = "agentContainer";
 
             agentContainer.style.display = "flex";
             agentContainer.style.flexWrap = "wrap";
@@ -66,7 +69,7 @@ export function agentSelection(initialPage, selectedTeam) {
 
             agents.forEach(agent => {
                 const card = document.createElement("div");
-                card.className = "agent-card";
+                card.className = "agentCard";
 
                 card.style.backgroundColor = "#000";
                 card.style.color = "#fff";
@@ -117,8 +120,19 @@ export function agentSelection(initialPage, selectedTeam) {
                 card.appendChild(selectButton);
 
                 selectButton.addEventListener("click", () => {
+                    // Shuffle the agents array
+                    for (let i = agents.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [agents[i], agents[j]] = [agents[j], agents[i]];
+                    }
+
+                    // Get the first three agents from the shuffled array
+                    var selectedAgents = agents.slice(0, 3);
+                    selectedAgents.push(agent);
                     // Handle selection logic here
-                    console.log("Agent selected:", agent.name);
+                    playerData.agents = selectedAgents;
+                    initialPage.removeChild(document.getElementsByClassName("agentContainer")[0]);
+                    playerInfo(initialPage,playerData);
                 });
 
                 agentContainer.appendChild(card);
