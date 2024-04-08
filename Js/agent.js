@@ -103,6 +103,7 @@ export function agentSelection(initialPage, playerData) {
 
                 const selectButton = document.createElement("button");
                 selectButton.textContent = "Select";
+                selectButton.style.cursor = "pointer";
                 selectButton.style.backgroundColor = "#FFD700";
                 selectButton.style.color = "#000";
                 selectButton.style.border = "none";

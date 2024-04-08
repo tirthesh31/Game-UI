@@ -195,6 +195,7 @@ export function playerInfo(initialPage,playerData){
     submit.setAttribute('content', 'test content');
     submit.setAttribute('class', 'btn');
     submit.textContent = 'SUBMIT';
+    submit.style.cursor = "pointer";
     submit.style.fontSize = "1.8rem";
     submit.style.borderRadius = ".5rem"
     submit.style.fontFamily = "Knight";

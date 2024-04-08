@@ -11,7 +11,7 @@ document.addEventListener('keydown', function(event) {
 
         // Spacebar is pressed
         loaderVideo.play(); 
-        pageInstruction.style.display = 'none   ';
+        pageInstruction.style.display = 'none';
         var element = document.documentElement;
         if (element.requestFullscreen) {
             element.requestFullscreen();

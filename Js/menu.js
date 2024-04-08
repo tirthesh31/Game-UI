@@ -44,7 +44,7 @@ export function teamSelection(initialPage) {
             teamNametag.style.marginRight = "1rem";
         }
         teamDiv.classList.add(teamName);
-
+        teamDiv.style.cursor = "pointer";
         teamDiv.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
         teamDiv.style.width = "90%";
         teamDiv.style.height = "45%";
@@ -69,10 +69,12 @@ export function teamSelection(initialPage) {
     teamNametag.style.margin = ".5rem";
     teamNametag.style.border = "none";
     teamNametag.style.fontSize = "3rem"
+    
 
     //here is the div for auto select 
     teamDiv = document.createElement("div");
-    teamDiv.classList.add("team");
+    teamDiv.classList.add("team")
+    teamDiv.style.cursor = "pointer";;
     teamDiv.style.width = "20%";
     teamDiv.style.height = "10%";
     teamDiv.style.backgroundColor ='#fff'
