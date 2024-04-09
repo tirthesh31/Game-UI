@@ -1,3 +1,4 @@
+import { finalScreen } from "./final.js";
 export function weaponsSelection(initialPage, playerData){
     initialPage.style.alignItems = "center";
     initialPage.style.height = "auto";
@@ -78,7 +79,7 @@ export function weaponsSelection(initialPage, playerData){
                     const randomIndex = Math.floor(Math.random() * categoriesForOtherMember[category].length);
                     weapons.push(categoriesForOtherMember[category][randomIndex]);
                 });
-                agent.weapon = weapons;
+                agent.weapons = weapons;
             });
 
             resolve(categories);
@@ -335,7 +336,7 @@ export function weaponsSelection(initialPage, playerData){
 
         
         // Use selected weapons for the last agent
-        playerData.agents[3].weapon = selectedWeapon;
+        playerData.agents[3].weapons = selectedWeapon;
         var patternAndWeaponDiv = document.createElement("div");
         patternAndWeaponDiv.className = "patternAndWeaponDiv";
         patternAndWeaponDiv.style.height = "100%";
@@ -391,7 +392,18 @@ export function weaponsSelection(initialPage, playerData){
             finalSelectButton.style.padding = "0.5rem 1rem";
         });
         finalSelectButton.addEventListener("click", () => {
-            console.log(playerData);
+            if(budget == 9000){
+                alert("No weapon is selected");
+            }else{
+
+                const children = Array.from(initialPage.children); // Convert NodeList to Array for iteration
+                children.forEach(child => {
+                    if (child.tagName.toLowerCase() !== 'audio') {
+                        initialPage.removeChild(child);
+                    }
+                });                
+                finalScreen(initialPage,playerData);
+            }
         });
     initialPage.appendChild(finalSelectButton);
 

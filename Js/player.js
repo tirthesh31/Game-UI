@@ -206,7 +206,7 @@ export function playerInfo(initialPage,playerData){
     submit.style.height = "4rem";
     submit.style.width = "14rem";
     submit.style.top = "48rem";
-    playerDisplayOrInput.appendChild(submit);
+    
 
     submit.addEventListener("mouseout",()=>{
 
@@ -228,16 +228,21 @@ export function playerInfo(initialPage,playerData){
         playerData.playerName = playerNameInput.value;
         playerData.teamName = playerTeamNameInput.value;
 
-        if(!validateCharacterName(playerData.playerName) && !validateCharacterName(playerData.teamName)){
-            // Display an error message in a dialog box
-            alert("Invalid character name. Please enter a name with 1 or 2 words and a maximum of 20 characters.");
-        } else{
+        if(!playerData.playerName == "" || !playerData.teamName == ""){
 
-            initialPage.removeChild(document.getElementsByClassName("agentContainer")[0]);
-            weaponsSelection(initialPage,playerData);
+            if(!validateCharacterName(playerData.playerName) && !validateCharacterName(playerData.teamName)){
+                // Display an error message in a dialog box
+                alert("Invalid character name. Please enter a name with 1 or 2 words and a maximum of 20 characters.");
+            } else{
+    
+                initialPage.removeChild(document.getElementsByClassName("agentContainer")[0]);
+                weaponsSelection(initialPage,playerData);
+            }
+        }else{
+            alert("insert your details properly!");
         }
     });
-
+    playerDisplayOrInput.appendChild(submit);
     playerInfo.appendChild(playerLabel);
     playerInfo.appendChild(playerDisplayOrInput);
     agentContainer.appendChild(playerInfo);
