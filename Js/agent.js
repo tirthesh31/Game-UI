@@ -48,6 +48,8 @@ export function agentSelection(initialPage, playerData) {
                 const randomIndex = Math.floor(Math.random() * 2); // 0 or 1
                 const teams = ["Terrorist", "Counter-Terrorist"];
                 selectedTeam = teams[randomIndex];
+                playerData.selectedTeam = selectedTeam;
+                heading.textContent = "Choose Your "+ selectedTeam +" Agent";
                 agents = data.filter(agent => agent.team.name === selectedTeam);
             } else {
                 agents = data.filter(agent => agent.team.name === selectedTeam);
