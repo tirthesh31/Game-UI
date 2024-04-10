@@ -33,7 +33,7 @@ export function agentSelection(initialPage, playerData) {
 
     // Create heading
     const heading = document.createElement("h1");
-    heading.textContent = "Choose Your Agent";
+    heading.textContent = "Choose Your "+ playerData.selectedTeam +" Agent";
     heading.style.color = "#FFD700"; // Gold color
     heading.style.fontSize = "2rem";
     heading.style.textAlign = "right";

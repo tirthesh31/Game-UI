@@ -64,12 +64,7 @@ export function finalScreen(initialPage,playerData){
         agentDetail.appendChild(image);
 
         const name = document.createElement("div");
-        if (i === playerData.agents.length - 1) {
-            // Update the name to include "me" at the end
-            name.textContent = agent.name + " (" + playerData.playerName + ")";
-        }else{
-            name.textContent = agent.name;
-        }
+        name.textContent = agent.name + " (" + agent.playerName + ")";
         name.style.marginTop = "0.5rem";
         name.style.textAlign = "center";
         agentDetail.appendChild(name);
@@ -114,12 +109,21 @@ export function finalScreen(initialPage,playerData){
             weaponImage.style.width = "7rem";
             weaponImage.style.height = "10rem";
             weaponImage.style.objectFit = "cover";
+            weaponImage.addEventListener("mouseover",()=>{
+                weaponName.style.display = "block";
+                
+            });
+            weaponImage.addEventListener("mouseout",()=>{
+                
+                weaponName.style.display = "none";
+            });
             weaponDetail.appendChild(weaponImage);
     
             const weaponName = document.createElement("div");
             weaponName.textContent = weapon.name;
             weaponName.style.marginTop = "0.5rem";
             weaponName.style.textAlign = "center";
+            weaponName.style.display = "none";
             weaponDetail.appendChild(weaponName);
             weaponDetails.appendChild(weaponDetail);
         });

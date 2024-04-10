@@ -54,8 +54,27 @@ document.addEventListener('keydown', function(event,audioElement) {
                 initialPage.removeChild(element);
             }
         });
+
+        const instructionDiv = document.querySelector('.pageInstruction');
+        const loaderDiv = document.querySelector('.pageLoader');
+
+        if (instructionDiv) {
+            instructionDiv.parentNode.removeChild(instructionDiv);
+        }
+
+        if (loaderDiv) {
+            loaderDiv.parentNode.removeChild(loaderDiv);
+        }
         // Navigate to the next page
         teamSelection(initialPage);
+
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 32 ) { 
+        
+                // Spacebar is pressed
+                loaderVideo.pause(); 
+            }
+        });
         
     }
 });

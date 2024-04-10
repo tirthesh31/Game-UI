@@ -8,6 +8,7 @@ export function playerInfo(initialPage,playerData){
         }
     }
 
+
     const agentContainer = document.createElement("div");
     agentContainer.className = "agentContainer";
 
@@ -218,23 +219,58 @@ export function playerInfo(initialPage,playerData){
         submit.style.border = "none";
     });
 
-    function validateCharacterName(name) {
-        const words = name.trim().split(/\s+/);
+    function validatePlayerName(name) {
+        const words = name.trim().split(" ");
         return words.length <= 2 && name.length <= 20;
     }
 
+    function validateTeamName(name) {
+        // Check for special characters
+        if (/[^a-zA-Z0-9\s]/.test(name)) {
+            return false;
+        }
+    
+        // Check for word count and total length
+        const words = name.trim().split(" ");
+        return words.length == 1 && name.length <= 20;
+    }
+    
+    async function generateRandomName() {
+        try {
+            const response = await fetch('https://randomuser.me/api');
+            const data = await response.json();
+            const firstName = data.results[0].name.first;
+            return firstName;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            return null;
+        }
+    }    
+
     submit.addEventListener("click",() => {
 
-        playerData.playerName = playerNameInput.value;
         playerData.teamName = playerTeamNameInput.value;
 
         if(!playerData.playerName == "" || !playerData.teamName == ""){
 
-            if(!validateCharacterName(playerData.playerName) && !validateCharacterName(playerData.teamName)){
+            if(!validatePlayerName(playerNameInput.value)){
                 // Display an error message in a dialog box
                 alert("Invalid character name. Please enter a name with 1 or 2 words and a maximum of 20 characters.");
+            }else if( !validateTeamName(playerData.teamName)){
+                // Display an error message in a dialog box
+                alert("You can't use special character.");
             } else{
     
+                playerData.agents.forEach((agent,i) =>{
+
+                    if(playerData.agents.length - 1 == i){
+                        agent.playerName = playerNameInput.value;
+                    }else{
+                        generateRandomName().then(firstName => {
+                            agent.playerName = firstName;
+                        });                        
+                    }
+                });
                 initialPage.removeChild(document.getElementsByClassName("agentContainer")[0]);
                 weaponsSelection(initialPage,playerData);
             }

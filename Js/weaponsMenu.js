@@ -97,7 +97,15 @@ export function weaponsSelection(initialPage, playerData){
         });
     }
 
-
+    function checkedWeaponChoice(weaponSelected, element) {
+        for (let e of weaponSelected) {
+            if (e.category.name === element.category.name) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 
     // Function to filter JSON data based on category and pattern
     function filterDataByPattern(jsonData, category, pattern) {
@@ -115,21 +123,21 @@ export function weaponsSelection(initialPage, playerData){
     function getPriceRange(category) {
         switch (category.toLowerCase()) {
             case "pistols":
-                return `$${Math.floor(Math.random() * (700 - 200 + 1)) + 200}`;
+                return `$${Math.floor((Math.floor(Math.random() * (14 - 4 + 1)) + 4) * 50)}`;
             case "smgs":
-                return `$${Math.floor(Math.random() * (1500 - 1000 + 1)) + 1000}`;
+                return `$${Math.floor((Math.floor(Math.random() * (21 - 20 + 1)) + 20) * 50)}`;
             case "rifles":
-                return `$${Math.floor(Math.random() * (3500 - 1500 + 1)) + 1500}`;
+                return `$${Math.floor((Math.floor(Math.random() * (40 - 30 + 1)) + 30) * 50)}`;
             case "heavy":
-                return `$${Math.floor(Math.random() * (4500 - 2500 + 1)) + 2500}`;
+                return `$${Math.floor((Math.floor(Math.random() * (40 - 50 + 1)) + 50) * 50)}`;
             case "knives":
-                return `$${Math.floor(Math.random() * (500 - 100 + 1)) + 100}`;
+                return `$${Math.floor((Math.floor(Math.random() * (9 - 2 + 1)) + 2) * 50)}`;
             case "gloves":
-                return `$${Math.floor(Math.random() * (500 - 100 + 1)) + 100}`;
+                return `$${Math.floor((Math.floor(Math.random() * (9 - 2 + 1)) + 2) * 50)}`;
             default:
                 return "Unknown";
         }
-    }
+    }    
     
 
     fetch("https://bymykel.github.io/CSGO-API/api/en/skins.json")
@@ -302,8 +310,11 @@ export function weaponsSelection(initialPage, playerData){
 
                                                     budget += parseInt(priceRange.textContent.replace("$",""));
                                                     alert("My friend!! you dont have enough money.");
-                                                }else{
-
+                                                }else if(checkedWeaponChoice(selectedWeapon,element) && selectedWeapon.length > 0){
+                                                    alert("your can't purchase item from same category");
+                                                }
+                                                else{
+                                                    console.log(checkedWeaponChoice(selectedWeapon,element));
                                                     selectButton.textContent = "Selected";
                                                     selectedWeapon.push(element);
                                                 }
@@ -393,7 +404,9 @@ export function weaponsSelection(initialPage, playerData){
         });
         finalSelectButton.addEventListener("click", () => {
             if(budget == 9000){
-                alert("No weapon is selected");
+                alert("My friend!! Please Select your weapons.");
+            }else if(selectedWeapon.length < 6){
+                alert("My friend!! Please Select weapon from each category to give your best.");
             }else{
 
                 const children = Array.from(initialPage.children); // Convert NodeList to Array for iteration
